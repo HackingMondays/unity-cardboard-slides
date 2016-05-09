@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Usin Cardboard With Unity</title>
+    <link rel="stylesheet" href="./node_modules/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="./node_modules/reveal.js/css/theme/night.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>Cardboard avec Unity</h1>
+            <h3>Hacking Mondays</h3>
+        </section>
+        <section>
+            <h2>Avant de commencer !</h2>
+            <h2>Posez autant de questions que nécéssaire !</h2>
+            <h3>N'attendez pas !</h3>
+        </section>
+        <section>
+            <section>
+                <h1>Unity, c'est ?</h1>
+                <p>
+                    Un environnement complet de développement de jeux.
+                </p>
+            </section>
+            <section>
+                <h1>Pourquoi Unity ?</h1>
+                <ul>
+                    <li>Simple</li>
+                    <li>Gratuit</li>
+                    <li>Peu de limites</li>
+                    <li>Grosse communauté</li>
+                    <li>Une market place pleine à craquer</li>
+                    <li>Une documentation exaustive</li>
+                    <li>Api quasi identique entre 2D et 3D</li>
+                    <li>Des tutos dans tous les sens</li>
+                    <li>Support de périphériques tiers (cardboard, leapmotion, myo, ...)</li>
+                </ul>
+            </section>
+            <section>
+                <h1>Languages</h1>
+                <ul>
+                    <li>C# (vivement recommandé)</li>
+                    <li>JS (peu recommandé)</li>
+                </ul>
+            </section>
+            <section>
+                <h1>Mais bon...</h1>
+                <div style="display: flex; flex-direction: row">
+                    <article style="width: 50%">
+                        <h3>JS</h3>
+<pre><code data-trim data-noescape>
+#pragma strict
+
+// Use this for initialization
+function Start () {
+    // Ici l'Ide m'abandonne...
+}
+
+// Update is called once per frame
+function Update () {
+
+}
+</code></pre>
+                    </article>
+
+                    <article style="width: 50%">
+                        <h3>C#</h3>
+<pre><code data-trim data-noescape>
+using UnityEngine;
+using System.Collections;
+
+public class Test : MonoBehaviour {
+
+    // Use this for initialization
+    void Start () {
+        // Ici l'ide m'aide !
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+    }
+}
+</code></pre>
+                    </article>
+                </div>
+            </section>
+            <section>
+                <h3>Et pour ceux qui n'aiment/savent pas codé</h3>
+                <p>Il y a des plugins ajouter de la logique sans code, le plus souvent payant.</p>
+                <ul>
+                    <li>uScript</li>
+                    <li>uFrame</li>
+                    <li>...</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Découverte de l'éditeur</h1>
+            </section>
+            <section>
+                <h2>La hiérarchie d'objet de la scène</h2>
+                <ul>
+                    <li>Elle est représenté sous forme d'arbre</li>
+                    <li>Tout objet peut en contenir d'autres</li>
+                    <li>Déplacer un objet sur la scène déplace tous ses enfants</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Récupérer les ressources</h1>
+            </section>
+            <section>
+                <h2>Import du sdk</h2>
+                <ol>
+                    <li>Créez un nouveau projet 3D</li>
+                    <li>Cliquez sur "Assets" -> "Import Package" -> "Custom Package"</li>
+                    <li>Selectionnez "CardboardSDKForUnity.unitypackage"</li>
+                    <li>Cliquez sur "Import"</li>
+                </ol>
+            </section>
+            <section>
+                <h2>Configuration de l'export mobile</h2>
+                <ol>
+                    <li>Une fois terminé : "Edit" -> "Project Settings" -> "Player"</li>
+                    <li>Choisir IOs ou Android en fonction de votre device</li>
+                    <li>Pour android : selectionnez "Other Settings"</li>
+                    <li>Pour android : Dans "Bundle Identifier" mettre quelque chose comme "fr.hackingmondays.democardboard"</li>
+                    <li>Dans "Resolution and Presentation" mettre "default Orientation" à "Landscape Left"</li>
+                    <li>On y est presque !</li>
+                </ol>
+            </section>
+            <section>
+                <h2>Premiers éléments de jeux</h2>
+                <ol>
+                    <li>Faire glisser sur la scene : "Assets/Cardboard/Prefabs/CardboardMain.prefab"</li>
+                    <li>Supprimer l'objet "Main Camera"</li>
+                    <li>Là on peut commencer à jouer !</li>
+                </ol>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Première intéraction</h1>
+            </section>
+            <section>
+                <h3>Ajouté les éléments sur la scène</h3>
+                <ol>
+                    <li>"Game Object" -> "3D Object" -> "Plane"</li>
+                    <li>"Game Object" -> "3D Object" -> "Cube"</li>
+                    <li>Déplacez un peu le cube</li>
+                </ol>
+            </section>
+            <section>
+                <h3>Ajouter un réticule</h3>
+                <ol>
+                    <li>Ajouter l'objet : "Assets/Cardboard/Prefabs/UI/CardboardReticle.prefab" dans "CardboardMain" -> "Head" de la scène</li>
+                    <li>"GameObject" -> "UI" -> "Event System"</li>
+                </ol>
+            </section>
+            <section>
+                <h3>Ajout des composants</h3>
+                <ol>
+                    <li>Selectionnez l'objet "CardboardMain" -> "Head" -> "Main Camera"</li>
+                    <li>Dans la partie "Components" faire "Add Components"</li>
+                    <li>Et ajoutez "Physics Raycaster"</li>
+                    <li>Selectionnez le cube</li>
+                    <li>Dans la partie "Components" faites "Add Components"</li>
+                    <li>Et ajoutez "Event Trigger"</li>
+                    <li>Selectionnez le "EventSystem"</li>
+                    <li>Dans la partie "Components" faire "Add Components"</li>
+                    <li>Et ajoutez "GazeInputModule"</li>
+                    <li>Cliquez sur rouage à droite de "GazeInputModule" et faire "Move Up", pour qu'il soit prioritaire.</li>
+                </ol>
+            </section>
+            <section>
+                <h2>Testez !</h2>
+                <ul>
+                    <li>Alt + mouvement de souris pour bouger la camera dans la simulation</li>
+                    <li>Ctrl + mouvement de souris pour incliner la camera sur les cotés dans la simulation</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Faire bouger le cube !</h3>
+                <ol>
+                    <li>Créer un dossier "Scripts"</li>
+                    <li>Créer un script "BoxInteraction"</li>
+                    <li>Dans le script créez une methode/fonction MoveBoxUp avec : <br>
+<pre><code>
+    // C#
+    public void MoveBoxUp() {
+        transform.Translate(Vector3.up);
+    }
+    // ou en JS
+    function MoveBoxUp() {
+        transform.Translate(Vector3.up);
+    }
+</code></pre>
+                    </li>
+                    <li>Faites glisser le script sur le cube.</li>
+                </ol>
+            </section>
+            <section>
+                <h3>Faire bouger le cube !</h3>
+                <ol>
+                    <li>Selectionnez le cube</li>
+                    <li>dans le Composant "Event Trigger" faites "Add new event type"</li>
+                    <li>Dans la liste selectionnez "PointerDown"</li>
+                    <li>Faites "+" en bas à droite du composant</li>
+                    <li>Maintenant faites glisser le composant de script ajouté plus tôt dans la partie "None (Object)"</li>
+                    <li>Une liste déroulante apparait, selectionnez "BoxInteraction" -> "MoveBoxUp"</li>
+                    <li>Et... Testez ! (cliquez pour simmuler le bouton du cardboard)</li>
+                </ol>
+            </section>
+        </section>
+    </div>
+</div>
+<script src="node_modules/reveal.js/js/reveal.js"></script>
+<script>
+    Reveal.initialize();
+</script>
+</body>
+</html>
